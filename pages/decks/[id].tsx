@@ -1,6 +1,6 @@
 import RecallCard from "@/components/RecallCard";
 import { createRequestClient } from "@/utils/supabase";
-import { Deck } from "@/utils/types";
+import { Card, Deck } from "@/utils/types";
 import {
     Box,
     Button,
@@ -15,7 +15,7 @@ import { useRouter } from "next/router";
 import { useCallback } from "react";
 
 interface DeckPageProps {
-    deck: Deck;
+    deck: Deck & { cards: Card[] };
 }
 
 export default function DeckPage({ deck }: DeckPageProps) {
