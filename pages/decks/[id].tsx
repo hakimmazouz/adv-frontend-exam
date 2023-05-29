@@ -68,6 +68,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         .eq("id", context.params?.id)
         .single();
 
+    if (!data) return { redirect: { destination: "/" } };
+
     const cardData = await client
         .from("cards")
         .select(

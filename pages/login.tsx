@@ -28,7 +28,7 @@ export default function Login() {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { session } = await createRequestClient(context);
 
-    if (session) return { redirect: "/" };
+    if (session) return { redirect: { destination: "/" } };
 
     return {
         props: {

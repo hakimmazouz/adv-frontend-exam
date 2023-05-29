@@ -5,6 +5,7 @@ import { SessionContextProvider, Session } from "@supabase/auth-helpers-react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { useState } from "react";
 import { theme } from "@/utils/theme";
+import Header from "@/components/Header";
 
 export default function App({
     Component,
@@ -18,6 +19,7 @@ export default function App({
                 supabaseClient={supabase}
                 initialSession={pageProps.initialSession}
             >
+                <Header />
                 <Component {...pageProps} />
             </SessionContextProvider>
         </ChakraProvider>
