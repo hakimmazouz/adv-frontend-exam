@@ -20,4 +20,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { session } = await createRequestClient(context);
 
     if (session) return { redirect: "/" };
+
+    return {
+        props: {
+            initialSession: session,
+        },
+    };
 }
