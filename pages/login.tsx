@@ -1,4 +1,5 @@
 import { createRequestClient } from "@/utils/supabase";
+import { Container } from "@chakra-ui/react";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
@@ -8,11 +9,18 @@ export default function Login() {
     const client = createBrowserSupabaseClient();
 
     return (
-        <Auth
-            supabaseClient={client}
-            appearance={{ theme: ThemeSupa }}
-            theme="dark"
-        />
+        <Container
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            sx={{ height: "100vh" }}
+        >
+            <Auth
+                providers={[]}
+                supabaseClient={client}
+                appearance={{ theme: ThemeSupa }}
+            />
+        </Container>
     );
 }
 
