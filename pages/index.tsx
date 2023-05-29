@@ -7,7 +7,7 @@ import {
     Heading,
     SimpleGrid,
 } from "@chakra-ui/react";
-import { Deck } from "@/utils/types";
+import { Card, Deck } from "@/utils/types";
 import { createRequestClient } from "@/utils/supabase";
 import { useRouter } from "next/router";
 import {
@@ -19,7 +19,7 @@ import { useCallback } from "react";
 import DeckCard from "@/components/DeckCard";
 
 interface HomePageProps {
-    decks: Deck[];
+    decks: (Deck & { cards: (Card & { count: number })[] })[];
 }
 
 export default function Home({ decks }: HomePageProps) {

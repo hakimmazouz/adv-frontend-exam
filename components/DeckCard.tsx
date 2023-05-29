@@ -1,8 +1,8 @@
-import { Deck } from "@/utils/types";
+import { Card, Deck } from "@/utils/types";
 import {
     Box,
     Button,
-    Card,
+    Card as ChakraCard,
     CardBody,
     CardHeader,
     Flex,
@@ -20,7 +20,11 @@ import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-export default function DeckCard({ deck }: { deck: Deck }) {
+export default function DeckCard({
+    deck,
+}: {
+    deck: Deck & { cards: (Card & { count: number })[] };
+}) {
     const supabase = useSupabaseClient();
     const router = useRouter();
     const deleteDeck = useCallback(async () => {
@@ -31,7 +35,7 @@ export default function DeckCard({ deck }: { deck: Deck }) {
 
     return (
         <Link as={NextLink} href={`/decks/${deck.id}`}>
-            <Card>
+            <ChakraCard>
                 <CardHeader>
                     <Flex justifyContent="space-between" alignItems="center">
                         <Heading size="md">{deck.name}</Heading>
@@ -53,7 +57,7 @@ export default function DeckCard({ deck }: { deck: Deck }) {
                     </Flex>
                 </CardHeader>
                 <CardBody>{deck.cards[0].count}</CardBody>
-            </Card>
+            </ChakraCard>
         </Link>
     );
 }
