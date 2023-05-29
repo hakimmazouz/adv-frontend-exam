@@ -19,6 +19,7 @@ export default function Login() {
                 providers={[]}
                 supabaseClient={client}
                 appearance={{ theme: ThemeSupa }}
+                redirectTo={process.env.NEXT_PUBLIC_SITE_URL}
             />
         </Container>
     );
