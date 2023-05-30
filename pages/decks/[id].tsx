@@ -23,8 +23,6 @@ export default function DeckPage({ deck }: DeckPageProps) {
     const router = useRouter();
     const createCard = useCallback(async () => {
         await supabase.from("cards").insert({
-            frontside_content: "Frontside",
-            backside_content: "Backside",
             deck_id: deck.id,
         });
 
@@ -34,7 +32,7 @@ export default function DeckPage({ deck }: DeckPageProps) {
     return (
         <Container maxWidth={1000}>
             <Flex justify="space-between" pb={20} pt={40} alignItems="center">
-                <Heading size="2xl">Decks</Heading>
+                <Heading size="2xl">{deck.name}</Heading>
                 <Button onClick={createCard}>Create card</Button>
             </Flex>
             <SimpleGrid columns={2} spacing={6}>

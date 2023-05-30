@@ -4,9 +4,22 @@ import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { GetServerSidePropsContext } from "next";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export default function Login() {
     const client = createBrowserSupabaseClient();
+    const router = useRouter();
+
+    useEffect(() => {
+        const {
+            data: { subscription },
+        } = client.auth.onAuthStateChange((_event, session) => {
+            if (session?.user) router.push("/");
+        });
+
+        return () => subscription.unsubscribe();
+    }, []);
 
     return (
         <Container
@@ -19,7 +32,6 @@ export default function Login() {
                 providers={[]}
                 supabaseClient={client}
                 appearance={{ theme: ThemeSupa }}
-                redirectTo={process.env.NEXT_PUBLIC_SITE_URL}
             />
         </Container>
     );
