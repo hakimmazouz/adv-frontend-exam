@@ -10,6 +10,7 @@ import {
     SimpleGrid,
 } from "@chakra-ui/react";
 import { Session, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { AnimatePresence } from "framer-motion";
 import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
@@ -36,9 +37,11 @@ export default function DeckPage({ deck }: DeckPageProps) {
                 <Button onClick={createCard}>Create card</Button>
             </Flex>
             <SimpleGrid columns={2} spacing={6}>
-                {deck.cards.map((card) => (
-                    <RecallCard key={card.id} card={card} />
-                ))}
+                <AnimatePresence>
+                    {deck.cards.map((card) => (
+                        <RecallCard key={card.id} card={card} />
+                    ))}
+                </AnimatePresence>
             </SimpleGrid>
         </Container>
     );

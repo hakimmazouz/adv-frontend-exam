@@ -17,6 +17,7 @@ import {
 } from "@supabase/auth-helpers-react";
 import { useCallback } from "react";
 import DeckCard from "@/components/DeckCard";
+import { AnimatePresence } from "framer-motion";
 
 interface HomePageProps {
     decks: (Deck & { cards: (Card & { count: number })[] })[];
@@ -40,10 +41,12 @@ export default function Home({ decks }: HomePageProps) {
                 <Heading size="2xl">Decks</Heading>
                 <Button onClick={createDeck}>Create new deck</Button>
             </Flex>
-            <SimpleGrid columns={3} spacing={6}>
-                {decks.map((deck) => (
-                    <DeckCard key={deck.id} deck={deck} />
-                ))}
+            <SimpleGrid columns={2} spacing={6}>
+                <AnimatePresence>
+                    {decks.map((deck) => (
+                        <DeckCard key={deck.id} deck={deck} />
+                    ))}
+                </AnimatePresence>
             </SimpleGrid>
         </Container>
     );

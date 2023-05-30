@@ -9,18 +9,26 @@ import {
     EditablePreview,
     Heading,
     Icon,
+    IconButton,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from "@chakra-ui/react";
 import { Card as CardType } from "@/utils/types";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useCallback, useState } from "react";
-import { BsArrowRepeat } from "react-icons/bs";
+import { BsArrowRepeat, BsThreeDotsVertical } from "react-icons/bs";
 import { debounce } from "lodash";
+import { useRouter } from "next/router";
+import { motion } from "framer-motion";
 
 export default function RecallCard({ card }: { card: CardType }) {
     const [flip, setFlip] = useState(false);
     const supabase = useSupabaseClient();
+    const router = useRouter();
     const deleteCard = useCallback(async () => {
         await supabase.from("cards").delete().eq("id", card.id);
+        router.replace(router.asPath);
     }, []);
     const updateFrontside = useCallback(async (value: string) => {
         const { error } = await supabase
@@ -36,9 +44,30 @@ export default function RecallCard({ card }: { card: CardType }) {
     }, []);
 
     return (
-        <Card minHeight={250} align="center">
+        <Card
+            layout
+            exit={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            as={motion.div}
+            minHeight={250}
+            align="center"
+        >
             <CardHeader>
-                {/* <Heading>Card with ID: {card.id}</Heading> */}
+                <Popover>
+                    <PopoverTrigger>
+                        <IconButton
+                            variant="ghost"
+                            colorScheme="gray"
+                            aria-label="See menu"
+                            icon={<BsThreeDotsVertical />}
+                        />
+                    </PopoverTrigger>
+                    <PopoverContent>
+                        <Button colorScheme="red" onClick={deleteCard}>
+                            Delete
+                        </Button>
+                    </PopoverContent>
+                </Popover>
             </CardHeader>
             <CardBody>
                 {flip ? (

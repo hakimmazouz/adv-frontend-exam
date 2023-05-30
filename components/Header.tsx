@@ -1,5 +1,6 @@
 import { Box, Button, Card, Container, Flex, Heading } from "@chakra-ui/react";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback, useEffect } from "react";
 
@@ -36,13 +37,18 @@ export default function Header() {
                     >
                         <Heading size="lg">Anki</Heading>
                         {user && (
-                            <Button
-                                variant="solid"
-                                colorScheme="blackAlpha"
-                                onClick={handleSignOut}
-                            >
-                                Sign out
-                            </Button>
+                            <Box>
+                                <Button as={Link} href="/">
+                                    Decks
+                                </Button>
+                                <Button
+                                    variant="solid"
+                                    colorScheme="blackAlpha"
+                                    onClick={handleSignOut}
+                                >
+                                    Sign out
+                                </Button>
+                            </Box>
                         )}
                     </Flex>
                 </Card>
